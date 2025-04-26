@@ -44,3 +44,33 @@ from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
 y = le.fit_transform(y)
 print("Label Encoder :\n", y)
+
+#OneHotEncoder - changes categorical data, like the countries, into numerical data, which is easier for the computer
+
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
+#changing the oth column - country
+ct = ColumnTransformer(transformers = [('encoder', OneHotEncoder(), [0])], remainder = 'passthrough')
+
+x = pd.DataFrame(ct.fit_transform(x))
+print("One hot encoding :\n", x)
+
+# Train_Test_Split
+
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 1)
+print("xtrain: \n", x_train)
+print("xtest: \n", x_test)
+print("ytrain: \n", y_train)
+print("ytest: \n", y_test)
+
+#Scaling 
+
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+x_train.iloc[:, 1:3] = sc.fit_transform(x_train.iloc[:, 1:3])
+x_test.iloc[:, 1:3] = sc.transform(x_test.iloc[:, 1:3])
+
+print(x_train)
+print(x_test)
